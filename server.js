@@ -1,17 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // Aggiungi questo modulo, è integrato in Node.js
-
 const app = express();
 
 // --- Middleware ---
 app.use(cors()); // Lascialo per massima compatibilità, non fa mai male
 app.use(express.json());
-
-// --- NUOVA SEZIONE: Servi i file statici ---
-// Questa riga dice a Express di servire qualsiasi file si trovi nella stessa cartella del server.
-// __dirname è una variabile speciale di Node.js che contiene il percorso della cartella corrente.
-app.use(express.static(path.join(__dirname)));
 
 // --- Sicurezza e Configurazione ---
 const IL_MIO_PIN_SEGRETO = "2304";
@@ -39,11 +32,7 @@ app.post('/api/get-location', (req, res) => {
     res.json(ultimaPosizione);
 });
 
-// --- NUOVA SEZIONE: Gestisci la pagina principale ---
-// Se qualcuno visita l'indirizzo principale, gli inviamo il file index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+
 
 // Avvia il server
 const PORT = process.env.PORT || 3000; // Usa la porta di Render o 3000 in locale
