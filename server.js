@@ -26,7 +26,7 @@ app.post('/api/update-location', (req, res) => {
     const { lat, lng, secretKey } = req.body;
     if (secretKey !== CHIAVE_SEGRETA_APP) return res.status(401).send('Chiave non autorizzata');
     if (!lat || !lng) return res.status(400).send('Dati mancanti');
-    ultimaPosizione = { lat, lng, timestamp: new Date().toLocaleString("it-IT") };
+    ultimaPosizione = { lat, lng, timestamp: new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })};
     console.log('Posizione aggiornata:', ultimaPosizione);
     res.status(200).send('Posizione ricevuta');
 });
